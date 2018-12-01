@@ -47,6 +47,8 @@ abstract class AbstractNetwork{
 public class ClientNetwork extends AbstractNetwork{
     private String myCard = ""; //나의 패 임시저장
     private String yourCard = ""; //상대의 패 임시저장
+    private String myMsg = "";
+    private String yourMsg = "";
 
     private Client_GUI GUI;
     public String ID;
@@ -111,16 +113,19 @@ public class ClientNetwork extends AbstractNetwork{
                 if(Message.equals(this.ID) && myCard.equals("")){
                     //내가 보낸 메세지
                     myCard = msg;
+                    myMsg = Message + msg+"\n";
                 }
                 else if(!Message.equals(this.ID) && yourCard.equals("")){
                     //상대가 보낸 메세지
                     yourCard = msg;
+                    yourMsg = Message + msg+"\n";
                 }
 
                 if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
                     System.out.println("myCard :"+myCard);
                     System.out.println("yourCard :"+ yourCard);
                     int winToken = 0;
+
                     if(yourCard.equals(this.myCard)){
                         winToken = 2;   //무승부
                     }
@@ -141,87 +146,12 @@ public class ClientNetwork extends AbstractNetwork{
                             JOptionPane.showMessageDialog(null, "비겼습니다!");
                     }
 
+                    GUI.Chatting_area.append(myMsg);
+                    GUI.Chatting_area.append(yourMsg);
+
                     myCard = "";
                     yourCard = "";
                 }
-                /*
-                if(Message.equals(this.ID)){    //내가 보낸 메세지일때
-                    System.out.println(this.ID+"가 보낸 메세지 " +msg);
-                    card = msg;
-                    if(!(yourcard.equals(""))){   //상대가 낸거랑 내가 낸거 둘다 있을때
-
-                        if (yourcard.equals(this.card)){
-                            JOptionPane.showMessageDialog(null,"비겼습니다!");
-                        }
-                        else if (yourcard.equals("바위")){
-                            if (card.equals("종이")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if (card.equals("가위")){
-                                JOptionPane.showMessageDialog(null,"쪘습니다!");
-                            }
-                        }
-                        else if (yourcard.equals("가위")){
-                            if (card.equals("바위")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if(card.equals("종이")){
-                                JOptionPane.showMessageDialog(null,"졌습니다!");
-                            }
-                        }
-                        else if (yourcard.equals("종이")){
-                            if(card.equals("가위")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if(card.equals("바위")){
-                                JOptionPane.showMessageDialog(null,"졌습니다!");
-                            }
-                        }
-                        card = "";
-                        yourcard = "";
-                    }
-                }
-                else{   //상대가 보낸 메세지일때
-                    if(card.equals("")){    //상대가 먼저 패를 냈을 떄
-                        yourcard = msg;
-                    }
-                    else {  //내가 먼저 패를 냈을 때
-                        System.out.println("msg : "+msg);
-                        if (msg.equals(this.card)){
-                            JOptionPane.showMessageDialog(null,"비겼습니다!");
-                        }
-                        else if (msg.equals("바위")){
-                            System.out.println(ID+"는 바위를 냈다");
-                            if (card.equals("종이")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if (card.equals("가위")){
-                                JOptionPane.showMessageDialog(null,"쪘습니다!");
-                            }
-                        }
-                        else if (msg.equals("가위")){
-                            if (card.equals("바위")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if(card.equals("종이")){
-                                JOptionPane.showMessageDialog(null,"졌습니다!");
-                            }
-                        }
-                        else if (msg.equals("종이")){
-                            if(card.equals("가위")){
-                                JOptionPane.showMessageDialog(null,"이겼습니다!");
-                            }
-                            else if(card.equals("바위")){
-                                JOptionPane.showMessageDialog(null,"졌습니다!");
-                            }
-                        }
-
-                        card = "";
-                        yourcard = "";
-                    }
-                }
-                */
-                GUI.Chatting_area.append(Message + msg+"\n");
                 break;
             case "OldUser": // 기존 유저목록 받아오기
                 fr_List.add(Message);
