@@ -113,12 +113,12 @@ public class ClientNetwork extends AbstractNetwork{
                 if(Message.equals(this.ID) && myCard.equals("")){
                     //내가 보낸 메세지
                     myCard = msg;
-                    myMsg = Message + msg+"\n";
+                    myMsg = Message + " : " + msg+"\n";
                 }
                 else if(!Message.equals(this.ID) && yourCard.equals("")){
                     //상대가 보낸 메세지
                     yourCard = msg;
-                    yourMsg = Message + msg+"\n";
+                    yourMsg = Message + " : " + msg+"\n";
                 }
 
                 if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
