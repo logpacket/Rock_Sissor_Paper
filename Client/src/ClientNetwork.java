@@ -45,8 +45,9 @@ abstract class AbstractNetwork{
     }
 }
 public class ClientNetwork extends AbstractNetwork{
-    private String card = "";
-    private String yourcard = "";
+    private String myCard = ""; //나의 패 임시저장
+    private String yourCard = ""; //상대의 패 임시저장
+
     private Client_GUI GUI;
     public String ID;
     public String Password;
@@ -106,6 +107,40 @@ public class ClientNetwork extends AbstractNetwork{
                 break;
             case "Chatting": // 채팅 처리
                 String msg = st.nextToken();
+
+                if(Message.equals(this.ID) && myCard.equals("")){
+                    //내가 보낸 메세지
+                    myCard = msg;
+                }
+                else if(!Message.equals(this.ID) && yourCard.equals("")){
+                    //상대가 보낸 메세지
+                    yourCard = msg;
+                }
+
+                if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
+                    int winToken = 0;
+                    if(yourCard.equals(myCard)){
+                        winToken = 2;   //무승부
+                    }
+                    else if( (yourCard.equals("가위") && myCard.equals("바위")) || (yourCard.equals("바위")&&myCard.equals("종이")) || (yourCard.equals("종이")&&myCard.equals("가위"))){
+                        winToken = 1;   //이겼을때
+                    }
+
+                    switch(winToken){
+                        case 0:
+                            JOptionPane.showMessageDialog(null, "졌습니다!");
+                            break;
+                        case 1:
+                            JOptionPane.showMessageDialog(null, "이겼습니다!");
+                            break;
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "비겼습니다!");
+                    }
+
+                    myCard = "";
+                    yourCard = "";
+                }
+                /*
                 if(Message.equals(this.ID)){    //내가 보낸 메세지일때
                     System.out.println(this.ID+"가 보낸 메세지 " +msg);
                     card = msg;
@@ -180,6 +215,7 @@ public class ClientNetwork extends AbstractNetwork{
                         yourcard = "";
                     }
                 }
+                */
                 GUI.Chatting_area.append(Message + msg);
                 break;
             case "OldUser": // 기존 유저목록 받아오기
