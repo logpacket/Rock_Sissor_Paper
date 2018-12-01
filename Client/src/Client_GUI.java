@@ -23,8 +23,9 @@ public class Client_GUI extends JFrame {
     // chat GUI Field
     public JFrame Chat_GUI = new JFrame();
     private JPanel ChatPane = new JPanel();
-    JTextField Chat_tf = new JTextField();
-    JButton send_btn = new JButton("전송");
+    JButton rock_btn = new JButton("바위");
+    JButton sissor_btn = new JButton("가위");
+    JButton paper_btn = new JButton("종이");
     public JList<String> contact_user_list = new JList<>();
     public JTextArea Chatting_area = new JTextArea();
     private JScrollPane scrollPane = new JScrollPane();
@@ -124,12 +125,12 @@ public class Client_GUI extends JFrame {
         Chatting_area.setEditable(false);
         scrollPane.setViewportView(Chatting_area);
 
-        Chat_tf.setBounds(12, 430, 366, 46);
-        ChatPane.add(Chat_tf);
-        Chat_tf.setColumns(10);
-
-        send_btn.setBounds(387, 429, 71, 46);
-        ChatPane.add(send_btn);
+        rock_btn.setBounds(387,429,71,46);
+        ChatPane.add(rock_btn);
+        sissor_btn.setBounds(307,429,71,46);
+        ChatPane.add(sissor_btn);
+        paper_btn.setBounds(227,429,71,46);
+        ChatPane.add(paper_btn);
 
         scrollPane_1.setBounds(12, 10, 82, 409);
         ChatPane.add(scrollPane_1);

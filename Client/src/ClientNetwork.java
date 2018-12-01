@@ -44,8 +44,9 @@ abstract class AbstractNetwork{
         }
     }
 }
-
 public class ClientNetwork extends AbstractNetwork{
+    private String card = "";
+    private String yourcard = "";
     private Client_GUI GUI;
     public String ID;
     public String Password;
@@ -105,6 +106,80 @@ public class ClientNetwork extends AbstractNetwork{
                 break;
             case "Chatting": // 채팅 처리
                 String msg = st.nextToken();
+                if(Message.equals(this.ID)){    //내가 보낸 메세지일때
+                    System.out.println(this.ID+"가 보낸 메세지 " +msg);
+                    card = msg;
+                    if(!(yourcard.equals(""))){   //상대가 낸거랑 내가 낸거 둘다 있을때
+                        if (yourcard.equals(this.card)){
+                            JOptionPane.showMessageDialog(null,"비겼습니다!");
+                        }
+                        else if (yourcard.equals("바위")){
+                            if (card.equals("종이")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if (card.equals("가위")){
+                                JOptionPane.showMessageDialog(null,"쪘습니다!");
+                            }
+                        }
+                        else if (yourcard.equals("가위")){
+                            if (card.equals("바위")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if(card.equals("종이")){
+                                JOptionPane.showMessageDialog(null,"졌습니다!");
+                            }
+                        }
+                        else if (yourcard.equals("종이")){
+                            if(card.equals("가위")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if(card.equals("바위")){
+                                JOptionPane.showMessageDialog(null,"졌습니다!");
+                            }
+                        }
+                        card = "";
+                        yourcard = "";
+                    }
+                }
+                else{   //상대가 보낸 메세지일때
+                    if(card.equals("")){    //상대가 먼저 패를 냈을 떄
+                        yourcard = msg;
+                    }
+                    else if(!(card.equals(""))){  //내가 먼저 패를 냈을 때
+                        System.out.println("msg : "+msg);
+                        if (msg.equals(this.card)){
+                            JOptionPane.showMessageDialog(null,"비겼습니다!");
+                        }
+                        else if (msg.equals("바위")){
+                            System.out.println(ID+"는 바위를 냈다");
+                            if (card.equals("종이")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if (card.equals("가위")){
+                                JOptionPane.showMessageDialog(null,"쪘습니다!");
+                            }
+                        }
+                        else if (msg.equals("가위")){
+                            if (card.equals("바위")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if(card.equals("종이")){
+                                JOptionPane.showMessageDialog(null,"졌습니다!");
+                            }
+                        }
+                        else if (msg.equals("종이")){
+                            if(card.equals("가위")){
+                                JOptionPane.showMessageDialog(null,"이겼습니다!");
+                            }
+                            else if(card.equals("바위")){
+                                JOptionPane.showMessageDialog(null,"졌습니다!");
+                            }
+                        }
+
+                        card = "";
+                        yourcard = "";
+                    }
+                }
                 GUI.Chatting_area.append(Message + msg);
                 break;
             case "OldUser": // 기존 유저목록 받아오기
