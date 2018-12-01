@@ -138,6 +138,7 @@ public class ClientNetwork extends AbstractNetwork{
                     switch(winToken){
                         case 0:
                             JOptionPane.showMessageDialog(null, "졌습니다!");
+
                             break;
                         case 1:
                             JOptionPane.showMessageDialog(null, "이겼습니다!");
