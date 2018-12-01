@@ -91,14 +91,13 @@ public class User_info extends AbstractNetwork implements Runnable{
         switch (protocol) {
             case "Chatting": //채팅시에 프로토콜
                 String msg = st.nextToken();
-                Server.Room_List.get(Message).BroadCast_Room(("Chatting/" + ID + ":/" + msg));
+                Server.Room_List.get(Message).BroadCast_Room(("Chatting/" + ID + "/" + msg));
                 break;
             case "JoinRoom": //방 입장시 프로토콜
                 String ps = st.nextToken();
                 Room_info r = Server.Room_List.get(Message);
                 if (r.Room_Password.equals(ps)) {
                     // 새로운 사용자 알림
-                    r.BroadCast_Room("Chatting/ /****" + ID + "님이 입장하셨습니다****\n");
                     send_message("JoinRoom/" + Message);
                     r.BroadCast_Room("contact_user/" + this.ID);
                     // 사용자 추가
