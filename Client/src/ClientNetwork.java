@@ -119,11 +119,13 @@ public class ClientNetwork extends AbstractNetwork{
 
                 if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
                     int winToken = 0;
-                    if(yourCard.equals(myCard)){
+                    if(yourCard.equals(this.myCard)){
                         winToken = 2;   //무승부
                     }
-                    else if( (yourCard.equals("가위") && myCard.equals("바위")) || (yourCard.equals("바위")&&myCard.equals("종이")) || (yourCard.equals("종이")&&myCard.equals("가위"))){
+
+                    if( (yourCard.equals("가위") && myCard.equals("바위")) || (yourCard.equals("바위") && myCard.equals("종이")) || (yourCard.equals("종이") && myCard.equals("가위")) ){
                         winToken = 1;   //이겼을때
+                        System.out.println(this.ID+"win!");
                     }
 
                     switch(winToken){
