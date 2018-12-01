@@ -15,7 +15,7 @@ public final class Client extends Client_GUI implements ActionListener, WindowLi
 
     private void send_message_GUI(String name){
         String room_name = Chat_GUI.getTitle();
-        network.send_message("Chatting/" + room_name + "/" + name + "\n");
+        network.send_message("Chatting/" + room_name + "/" + name);
     }
 
     private void start() {// 프로그램 시작시 액션리스너 활성

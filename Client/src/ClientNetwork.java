@@ -118,6 +118,8 @@ public class ClientNetwork extends AbstractNetwork{
                 }
 
                 if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
+                    System.out.println("myCard :"+myCard);
+                    System.out.println("yourCard :"+ yourCard);
                     int winToken = 0;
                     if(yourCard.equals(this.myCard)){
                         winToken = 2;   //무승부
@@ -147,6 +149,7 @@ public class ClientNetwork extends AbstractNetwork{
                     System.out.println(this.ID+"가 보낸 메세지 " +msg);
                     card = msg;
                     if(!(yourcard.equals(""))){   //상대가 낸거랑 내가 낸거 둘다 있을때
+
                         if (yourcard.equals(this.card)){
                             JOptionPane.showMessageDialog(null,"비겼습니다!");
                         }
@@ -182,7 +185,7 @@ public class ClientNetwork extends AbstractNetwork{
                     if(card.equals("")){    //상대가 먼저 패를 냈을 떄
                         yourcard = msg;
                     }
-                    else if(!(card.equals(""))){  //내가 먼저 패를 냈을 때
+                    else {  //내가 먼저 패를 냈을 때
                         System.out.println("msg : "+msg);
                         if (msg.equals(this.card)){
                             JOptionPane.showMessageDialog(null,"비겼습니다!");
@@ -218,7 +221,7 @@ public class ClientNetwork extends AbstractNetwork{
                     }
                 }
                 */
-                GUI.Chatting_area.append(Message + msg);
+                GUI.Chatting_area.append(Message + msg+"\n");
                 break;
             case "OldUser": // 기존 유저목록 받아오기
                 fr_List.add(Message);
