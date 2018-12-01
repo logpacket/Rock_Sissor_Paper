@@ -44,8 +44,12 @@ abstract class AbstractNetwork{
         }
     }
 }
-
 public class ClientNetwork extends AbstractNetwork{
+    private String myCard = ""; //나의 패 임시저장
+    private String yourCard = ""; //상대의 패 임시저장
+    private String myMsg = "";
+    private String yourMsg = "";
+
     private Client_GUI GUI;
     public String ID;
     public String Password;
@@ -105,7 +109,50 @@ public class ClientNetwork extends AbstractNetwork{
                 break;
             case "Chatting": // 채팅 처리
                 String msg = st.nextToken();
-                GUI.Chatting_area.append(Message + msg);
+
+                if(Message.equals(this.ID) && myCard.equals("")){
+                    //내가 보낸 메세지
+                    myCard = msg;
+                    myMsg = Message + msg+"\n";
+                }
+                else if(!Message.equals(this.ID) && yourCard.equals("")){
+                    //상대가 보낸 메세지
+                    yourCard = msg;
+                    yourMsg = Message + msg+"\n";
+                }
+
+                if(!yourCard.equals("") && !myCard.equals("")){ //승패여부 판단시작. 둘다 패를 냈을때
+                    System.out.println("myCard :"+myCard);
+                    System.out.println("yourCard :"+ yourCard);
+                    int winToken = 0;
+
+                    if(yourCard.equals(this.myCard)){
+                        winToken = 2;   //무승부
+                    }
+
+                    if( (yourCard.equals("가위") && myCard.equals("바위")) || (yourCard.equals("바위") && myCard.equals("종이")) || (yourCard.equals("종이") && myCard.equals("가위")) ){
+                        winToken = 1;   //이겼을때
+                        System.out.println(this.ID+"win!");
+                    }
+
+                    switch(winToken){
+                        case 0:
+                            JOptionPane.showMessageDialog(null, "졌습니다!");
+
+                            break;
+                        case 1:
+                            JOptionPane.showMessageDialog(null, "이겼습니다!");
+                            break;
+                        case 2:
+                            JOptionPane.showMessageDialog(null, "비겼습니다!");
+                    }
+
+                    GUI.Chatting_area.append(myMsg);
+                    GUI.Chatting_area.append(yourMsg);
+
+                    myCard = "";
+                    yourCard = "";
+                }
                 break;
             case "OldUser": // 기존 유저목록 받아오기
                 fr_List.add(Message);

@@ -12,12 +12,10 @@ public final class Client extends Client_GUI implements ActionListener, WindowLi
         Register_init();// 회원가입 구성 메소드
         start();
     }
-    private void send_message_GUI(){
+
+    private void send_message_GUI(String name){
         String room_name = Chat_GUI.getTitle();
-        String message = Chat_tf.getText();
-        network. send_message("Chatting/" + room_name + "/" + message + "\n");
-        Chat_tf.setText("");
-        Chat_tf.requestFocus();
+        network.send_message("Chatting/" + room_name + "/" + name);
     }
 
     private void start() {// 프로그램 시작시 액션리스너 활성
@@ -27,8 +25,11 @@ public final class Client extends Client_GUI implements ActionListener, WindowLi
         create_room_btn.addActionListener(this);
         join_room_btn.addActionListener(this);
         register_btn.addActionListener(this);
-        send_btn.addActionListener(this);
-        Chat_tf.addKeyListener(this);
+        rock_btn.addActionListener(this);
+        sissor_btn.addActionListener(this);
+        paper_btn.addActionListener(this);
+        //send_btn.addActionListener(this);
+        //Chat_tf.addKeyListener(this);
         Chat_GUI.addWindowListener(this);
     }
 
@@ -72,9 +73,10 @@ public final class Client extends Client_GUI implements ActionListener, WindowLi
                 network.send_message("inviteRoom/" + fr + "/" + room);// 초대할 친구 이름이랑 방정보
                 // 보내기
             }
-        } else if (event == send_btn) {// 전송 버튼 누를시
-            send_message_GUI();
-        } else if (event == join_room_btn) {// 방 참가 버튼 누를시
+        } else if (event == rock_btn || event == sissor_btn || event == paper_btn) {// 가위바위보 버튼 누름시
+            send_message_GUI(((JButton)event).getText());
+        }
+        else if (event == join_room_btn) {// 방 참가 버튼 누를시
             String room_name = Room_list.getSelectedValue();
             String Password = JOptionPane.showInputDialog("방 비밀번호");// 방정보
             // 사용자로부터
@@ -91,9 +93,7 @@ public final class Client extends Client_GUI implements ActionListener, WindowLi
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == 10) {
-            send_message_GUI();
-        }
+
     }
 
     @Override
